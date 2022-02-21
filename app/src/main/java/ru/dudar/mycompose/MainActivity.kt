@@ -17,6 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
@@ -34,7 +35,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ListMessage(SampleData.messageList)
-                   // MessageCard(Message("Игорь","привет!!!" ))
                 }
 
     }
@@ -45,7 +45,7 @@ data class Message(val autor: String, val body: String)
 @Composable
 fun MessageCard(message: Message) {
     Card(modifier = Modifier.fillMaxWidth(), elevation = 3.dp) {
-        Row(Modifier.padding(all = 10.dp)) {
+        Row(Modifier.padding(all = 10.dp), verticalAlignment = Alignment.CenterVertically) {
             Image(painter = painterResource(id = R.drawable.profile_picture),
                 contentDescription ="Contact Profile",
                 Modifier
@@ -59,8 +59,7 @@ fun MessageCard(message: Message) {
             val surfaceColor: Color by animateColorAsState(
                 if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.surface,)
 
-            Column(Modifier.padding(horizontal = 10.dp)
-                .clickable { isExpanded = !isExpanded } ) {
+            Column(Modifier.clickable { isExpanded = !isExpanded } ) {
                 Text(text = message.autor,
                     color= Color(0xFF09329B),
                     style = MaterialTheme.typography.subtitle2
@@ -70,7 +69,7 @@ fun MessageCard(message: Message) {
                 Surface(shape = MaterialTheme.shapes.medium,
                     elevation = 1.dp,
                     color = surfaceColor,
-                    modifier = Modifier.animateContentSize().padding(1.dp)
+                    modifier = Modifier.animateContentSize().padding(1.dp).fillMaxWidth()
 
                 ) {
                     Text(text = message.body,
@@ -94,10 +93,10 @@ fun ListMessage(messages: List<Message>) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyComposeTheme {
-        MessageCard(Message("Игорь","привет!!!" ))
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    MyComposeTheme {
+//        MessageCard(Message("Игорь","привет!!!" ))
+//    }
+//}
